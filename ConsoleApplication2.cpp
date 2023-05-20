@@ -352,6 +352,7 @@ struct poke_space
 
     }
 
+    // A manual fight with a choice of pokemons from Text.txt
     void fight()
     {
         Pokemon** pfirst = new Pokemon*;
@@ -545,6 +546,7 @@ struct poke_space
 
     }
 
+    // A manual fight of 2 determined pokemons
     Pokemon* fight(Pokemon* pfirstt, Pokemon* psecondd)
     {
         Pokemon** pfirst = new Pokemon*;
@@ -718,6 +720,7 @@ struct poke_space
 
     }
 
+    // A auto giht of 2 determined pokemons
     Pokemon* fight_fast(Pokemon* pfirstt, Pokemon* psecondd)
     {
         Pokemon** pfirst = new Pokemon*;
@@ -898,7 +901,6 @@ struct poke_space
             outfile.close();
             return nullptr;
         }
-
 
     }
 };
