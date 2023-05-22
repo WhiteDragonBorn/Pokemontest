@@ -987,10 +987,6 @@ int main()
     //cout << Pokemon_db.fight_fast(Pokemon_db.Pokes_ptr[0], Pokemon_db.Pokes_ptr[1])->NAME;
     Pokemon_db.tournament();
 
-
-
-
-
     /*cout << "Хотите ли вы начать сражение? 0/1 :\n";
     int choice = 0;
     fight_input_check(choice, 0, 1);
