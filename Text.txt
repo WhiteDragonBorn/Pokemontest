@@ -1,7 +1,15 @@
-1 Mew Psychic 200 2 Ghost 3 first 3 5 second 10 25 third 5 10
+# ID | NAME | TYPE | HP | DEFENSE | WEAK_TYPE | SPEED | ATTACK_NAME | DMG | ENERGY_COST ...
 
-2 Gengar Ghost 30 2 Ghost 2 first 3 5 second 10 25 third 5 10
+1 Mew Psychic 22 2 Ghost 3 Swift 4 5 FireSpin 10 25 PsyBeam 15 30
 
-#3 Lucario Fighting 23 2 Psychic 2 first 3 5 second 10 25 third 5 10
+2 Gengar Ghost 27 2 Ghost 2 Spite 5 5 Curse 10 25 ShadowBall 15 33
 
-#4 Charizard Fire 25 2 Water 2 first 3 5 second 10 25 third 5 10
+3 Lucario Fighting 23 2 Psychic 2 Screech 4 5 MetalClaw 10 25 DragonPulse 14 37
+
+4 Charizard Fire 25 2 Water 2 HeatWave 3 5 DragonBreath 10 25 Inferno 15 40
+
+5 Tyranitar Rock 27 3 Fighting 1 Pulse 2 5 Bite 8 15 GigaImpact 13 35
+
+6 Eevee Normal 22 4 Fighting 2 TailWhip 5 5 TakeDown 7 12 LastResort 11 29
+
+7 Lopunny Normal 26 1 Fire 1 Pound 2 5 Headbutt 9 14 Flatter 14 37

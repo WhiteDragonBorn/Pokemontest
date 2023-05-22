@@ -20,6 +20,8 @@ using std::getline;
 using std::ifstream;
 using std::ofstream;
 
+vector<string> poke_types_strings{ "NORMAL", "FIRE", "WATER", "ELECTRIC", "GRASS", "ICE", "FIGHTING", "POISON", "GROUND", "FLYING", "PSYCHIC", "BUG", "ROCK", "GHOST", "DRAGON", "DARK", "STEEL", "FAIRY" };
+
 enum pokemon_type {
     NORMAL, FIRE, WATER, ELECTRIC, GRASS,
     ICE, FIGHTING, POISON, GROUND, FLYING,
@@ -720,7 +722,7 @@ struct poke_space
 
     }
 
-    // A auto giht of 2 determined pokemons
+    // A auto fight of 2 determined pokemons
     Pokemon* fight_fast(Pokemon* pfirstt, Pokemon* psecondd)
     {
         Pokemon** pfirst = new Pokemon*;
@@ -845,63 +847,112 @@ struct poke_space
             swap(pfirst, psecond);
             round++;
         }
-
-
-
     }
 
 
-    Pokemon* tournament()
+    void tournament()
     {
-        if (real_pokes_size < 2)
-        {
-            cout << "No pokemons to fight";
-            return nullptr;
-        }
-
+        srand(time(0));
         ofstream outfile("tournament.txt");
 
-        if (outfile.is_open())
+        Pokemon* target = nullptr;
+
+        if (real_pokes_size < 6)
         {
-            //Pokemon** Tournament_db = new Pokemon * [real_pokes_size];
-
-            //for (int i = 0; i < real_pokes_size; i++)
-            //{
-            //    *Tournament_db = Pokes_ptr[i];
-            //}
-
-            if (real_pokes_size == 2)
-            {
-                //Pokemon * winner = fight_fast(Tournament_db[0], Tournament_db[1]);
-
-                Pokemon* winner = fight_fast(Pokes_ptr[0], Pokes_ptr[1]);
-                outfile << "Победитель - " << winner->NAME << endl;
-                return winner;
-            }
-
-            Pokemon** mas = new Pokemon * [2];
-            for (int i = 0, j = 0; i < real_pokes_size; i += 2, ++j)
-            {
-
-            }
-
-
-            if (real_pokes_size % 2 != 0)
-            {
-
-            }
-
-            outfile.close();
-            //delete[] Tournament_db;
-            //return nullptr;
+            cout << "No pokemons to fight";
+            outfile << "Not enough pokemons, please input more";
         }
         else
         {
-            cout << "File was not created";
-            outfile.close();
-            return nullptr;
-        }
+            int const fight_size = 6;
 
+            outfile << real_pokes_size << endl;
+
+            int temp_mas[fight_size] = {};
+            for (int i = 0; i < fight_size; i++)
+                temp_mas[i] = -1;
+
+
+            bool flag = false;
+            for (int i = 0; i < fight_size; i++)
+            {
+                while (!flag)
+                {
+                    int temp = rand() % real_pokes_size;
+                    int k = 0;
+                    for (int j = 0; j < fight_size; j++)
+                    {
+                        if (temp == temp_mas[j])
+                        {
+                            k++;
+                        }
+                    }
+                    if (k == 0)
+                    {
+                        flag = true;
+                        temp_mas[i] = temp;
+                    }
+                }
+                flag = false;
+            }
+            for (int i = 0; i < fight_size; i++)
+                cout << temp_mas[i]+1;
+            cout << endl;
+            const int team_size = 3;
+            Pokemon** blue_team = new Pokemon * [team_size];
+            Pokemon** red_team = new Pokemon * [team_size];
+
+            cout << endl << "First team: ";
+            for (int i = 0; i < team_size; i++)
+            {
+                blue_team[i] = Pokes_ptr[temp_mas[i]];
+                cout << " " << blue_team[i]->NAME;
+            }
+                
+            cout << endl << "Second team: ";
+            for (int i = 0; i < team_size; i++)
+            {
+                red_team[i] = Pokes_ptr[temp_mas[i + 3]];
+                cout << " " << red_team[i]->NAME;
+            }
+            cout << endl;
+
+
+            int blue_score = 0;
+            int red_score = 0;
+            for (int i = 0; i < team_size; i++)
+            {
+                cout << "Fight started between: " << blue_team[i]->NAME << " and " << red_team[i]->NAME << endl;
+                Pokemon* pokee = fight_fast(blue_team[i], red_team[i]);
+                cout << endl << pokee->NAME << endl << endl;
+
+                if (target == nullptr)
+                    target = pokee;
+                else if(target != nullptr && target->ATTACKS[0].DAMAGE >= pokee->ATTACKS[0].DAMAGE)
+                {
+                    target = nullptr;
+                    target = pokee;
+                }
+                cout << endl << "// " << target->NAME << " \\\\ " << endl;
+                
+
+
+                if (blue_team[i]->ID == pokee->ID)
+                    blue_score++;
+                else
+                    red_score++;
+            }
+            cout << endl << blue_score << "  " << red_score << endl;
+            if (blue_score > red_score)
+                cout << endl << "And the winner is First team" << endl;
+            else if (blue_score < red_score)
+                cout << endl << "And the winner is Second team" << endl;
+            else
+                cout << "A tie";
+
+            outfile << "Smallest damage amongst winner pokemons has " << target->NAME << endl;
+            outfile << "It's ID is " << target->ID << " and type of this pokemon is " << poke_types_strings[target->TYPE] << endl;
+        }
     }
 };
 
@@ -933,6 +984,7 @@ int main()
     Pokemon_db.out_pokes();
     Pokemon_db.check_pokes();
 
+    //cout << Pokemon_db.fight_fast(Pokemon_db.Pokes_ptr[0], Pokemon_db.Pokes_ptr[1])->NAME;
     Pokemon_db.tournament();
 
 

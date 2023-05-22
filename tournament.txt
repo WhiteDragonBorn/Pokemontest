@@ -1,1 +1,3 @@
-Победитель - Mew
+7
+Smallest damage amongst winner pokemons has Tyranitar
+It's ID is 5 and type of this pokemon is ROCK
